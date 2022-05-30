@@ -1,0 +1,45 @@
+<div class="row main-container justify-content-center text-center align-items-center align-content-center">
+  <div><h4>Gestion des clients</h4></div>
+  <div class="col-11 align-self-center table-responsive">
+    <table class="col-12 table table-striped">
+      <tr>
+        <th><strong>Nom</strong></th>
+        <th><strong>Adresse</strong></th>
+        <td></td>
+        <td></td>
+      </tr>
+      <ng-container *ngFor="let clt of client">
+        <tr *ngIf="!clt.isBeingEdited;">
+          <!--      <td>{{clt.id}}</td>-->
+          <td>{{clt.name}}</td>
+          <td>{{clt.address}}</td>
+          <td><a (click)="editClient(clt)" href="#"><i class="fa fa-pencil-square"></i></a></td>
+          <td><a (click)="deleteClient(clt.id)" href="#"><i class="fa fa-trash-o"></i></a></td>
+        </tr>
+
+        <tr *ngIf="clt.isBeingEdited;">
+          <td>
+            <input type="text" [(ngModel)]="clt.toEditName" placeholder="Modifier le nom"/>
+          </td>
+          <td><input type="text" [(ngModel)]="clt.toEditAddress" placeholder="Modifier l'adresse'"/>
+          </td>
+          <a class="btn btn-primary" (click)="updateClient(clt)">Enregistrer</a>
+          <a class="btn btn-warning" (click)="clt.isBeingEdited=false">Annuler</a>
+
+        </tr>
+      </ng-container>
+      <tr>
+        <td><input class="col-12 form-group nb-form-field-addon--highlight" [(ngModel)]="nameClient"
+                   placeholder="Entrez le nom du client"></td>
+        <td><input class="col-12 " [(ngModel)]="addressClient" placeholder="Entrez l'adresse du client"></td>
+        <td rowspan="2">
+          <button (click)="createClient()" [disabled]="!nameClient || !addressClient" class="col-auto btn btn-outline-primary">
+            Ajouter
+          </button>
+        </td>
+      </tr>
+      <div>{{successMessage}}</div>
+    </table>
+  </div>
+</div>
+

@@ -1,0 +1,109 @@
+<div class="row main-container justify-content-center text-center align-items-center align-content-center">
+  <div><h4>Gestion des réservations</h4></div>
+<div class="col-11 align-self-center table-responsive">
+  <table class="col-12 table table-striped">
+    <thead>
+    <td><strong>Client</strong></td>
+    <td><strong>N° de chambre</strong></td>
+    <td><strong>Début</strong></td>
+    <td><strong>Fin</strong></td>
+    <td><strong># de nuits</strong></td>
+    <td><strong>Type de chambre</strong></td>
+    <td><strong>Fumer</strong></td>
+    <td><strong>Prix/nuit</strong></td>
+    <td><strong>Prix total</strong></td>
+    <td></td>
+    <td></td>
+    </thead>
+    <ng-container *ngFor="let bkng of booking">
+      <tr *ngIf="!bkng.isBeingEdited; else editBookingBlock">
+        <td>{{bkng.bookingClient}}</td>
+        <td>{{bkng.roomN}}</td>
+        <td>{{bkng.start}}</td>
+        <td>{{bkng.end}}</td>
+        <td *ngIf="1!=bkng.nNights">{{(bkng.nNights)}} <small><strong>nuits</strong></small></td>
+        <td *ngIf="1==bkng.nNights">{{(bkng.nNights)}} <small><strong>nuit</strong></small></td>
+        <td>{{bkng.roomType}}</td>
+        <td>{{('true'==bkng.smoking) ? 'Autorisé' : 'Non autorisé'}}</td>
+        <td>{{bkng.pricePerNight|number}} <small><strong>MAD</strong></small></td>
+        <td [ngSwitch]="true">
+          <strong
+            *ngSwitchCase="bkng.roomType=='family'">{{bkng.nNights * bkng.pricePerNight * 180 / 100|number}}
+            <small><strong>MAD</strong></small>
+          </strong>
+          <strong *ngSwitchCase="bkng.roomType=='double'">{{bkng.nNights * bkng.pricePerNight * 140 / 100|number}}
+            <small><strong>MAD</strong></small>
+          </strong>
+          <strong *ngSwitchDefault>{{bkng.nNights * bkng.pricePerNight * 100 / 100|number}}
+            <small><strong>MAD</strong></small>
+          </strong>
+        </td>
+        <td><a (click)="editBooking(bkng)" href="#"><i class="fa fa-pencil-square"></i></a></td>
+        <td><a (click)="deleteBooking(bkng.id)" href="#"><i class="fa fa-trash-o"></i></a></td>
+      </tr>
+
+      <ng-template #editBookingBlock>
+        <tr>
+          <td><select [(ngModel)]="bkng.toEditBookingClient">
+            <option value="" disabled selected>Modifier le client</option>
+            <option *ngFor="let clt of allClients" [value]="clt.name">{{clt.name}}</option>
+          </select></td>
+          <td><input class="input-group" type="text" [(ngModel)]="bkng.toEditRoomN"
+                     placeholder="Modifier le N° de chambre"/></td>
+          <td><input type="date" [(ngModel)]="bkng.toEditStart" placeholder="Modifier la date de début"/></td>
+          <td><input type="date" [(ngModel)]="bkng.toEditEnd" [min]="bkng.toEditStart"
+                     placeholder="Modifier la date de fin"/></td>
+          <td>-</td>
+          <td><select [(ngModel)]="bkng.toEditRoomType" id="editType">
+            <option value="" disabled selected>Modifier le type de chambre</option>
+            <option *ngFor="let rm of roomTypes" [value]="rm.type">{{rm.type}}</option>
+          </select></td>
+          <td><select [(ngModel)]="bkng.toEditSmoking" id="editFumer">
+            <option value="" disabled selected>Autorisation de fumer</option>
+            <option value="true">Autorisé</option>
+            <option value="false">Non autorisé</option>
+          </select></td>
+          <td><input type="number" [(ngModel)]="bkng.toEditPricePerNight" placeholder="Modifier le prix/nuit"/></td>
+          <td>-</td>
+          <td><a class="btn btn-outline-success fa fa-check" (click)="updateBooking(bkng)">Enregistrer</a></td>
+          <td><a class="btn btn-outline-danger fa fa-ban" (click)="bkng.isBeingEdited=false">Annuler</a></td>
+        </tr>
+      </ng-template>
+    </ng-container>
+    <tr>
+      <td><select [(ngModel)]="bookingClient">
+        <option value="" disabled selected="selected">Choisir le client</option>
+        <option *ngFor="let clt of allClients" [value]="clt.name">{{clt.name}}</option>
+      </select>
+      </td>
+      <td style="width: fit-content;"><input  style="width: fit-content;"type="number" class="" [(ngModel)]="roomN"
+                 placeholder="N° de chambre">
+      </td>
+      <td><input type="date" [(ngModel)]="start" >
+      </td>
+      <td><input type="date" [(ngModel)]="end" [min]="start">
+      </td>
+      <td>-</td>
+      <td><select [(ngModel)]="roomType" id="type">
+        <option *ngFor="let rm of roomTypes" [value]="rm.type">{{rm.type}}</option>
+      </select>
+      </td>
+      <td><select [(ngModel)]="smoking" id="fumer">
+        <option value="true">Autorisé</option>
+        <option value="false">Non autorisé</option>
+      </select>
+      <td><input type="number" [(ngModel)]="pricePerNight" min="1" step="any" placeholder="Prix/nuit"/>
+      </td>
+      <td>-</td>
+      <td>
+        <button (click)="createBooking()"
+                [disabled]="roomN==null || start==null||end==null||bookingClient==null || roomType==null || smoking==null || pricePerNight==null"
+                class="btn btn-outline-primary">
+          <i class="fa fa-plus"> </i> Ajouter
+        </button>
+      </td>
+      <div>{{successMessage}}</div>
+    </tr>
+  </table>
+</div>
+</div>
