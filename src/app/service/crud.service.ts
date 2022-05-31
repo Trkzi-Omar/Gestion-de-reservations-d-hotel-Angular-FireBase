@@ -50,4 +50,18 @@ export class CrudService {
   get_allRoomTypes() {
     return this.firesServices.collection('roomType').snapshotChanges();
   }
+
+  update_RoomType(id:any, updatedrmType: { [p: string]: any }) {
+    this.firesServices.doc('roomType/' + id).update(updatedrmType);
+
+  }
+
+  delete_RoomType(id: any) {
+    this.firesServices.doc('roomType/' + id).delete();
+
+  }
+
+  create_newRoomType(RoomType: { [p: string]: any }) {
+    return this.firesServices.collection('roomType').add(RoomType);
+  }
 }

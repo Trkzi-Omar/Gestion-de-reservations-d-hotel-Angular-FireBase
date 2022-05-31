@@ -19,9 +19,9 @@
 
         <tr *ngIf="clt.isBeingEdited;">
           <td>
-            <input type="text" [(ngModel)]="clt.toEditName" placeholder="Modifier le nom"/>
+            <input class="form-control" type="text" [(ngModel)]="clt.toEditName" placeholder="Modifier le nom"/>
           </td>
-          <td><input type="text" [(ngModel)]="clt.toEditAddress" placeholder="Modifier l'adresse'"/>
+          <td><input class="form-control" type="text" [(ngModel)]="clt.toEditAddress" placeholder="Modifier l'adresse'"/>
           </td>
           <a class="btn btn-primary" (click)="updateClient(clt)">Enregistrer</a>
           <a class="btn btn-warning" (click)="clt.isBeingEdited=false">Annuler</a>
@@ -29,12 +29,12 @@
         </tr>
       </ng-container>
       <tr>
-        <td><input class="col-12 form-group nb-form-field-addon--highlight" [(ngModel)]="nameClient"
+        <td><input class="form-control col-auto" [(ngModel)]="nameClient"
                    placeholder="Entrez le nom du client"></td>
-        <td><input class="col-12 " [(ngModel)]="addressClient" placeholder="Entrez l'adresse du client"></td>
+        <td><input class=" form-control" [(ngModel)]="addressClient" placeholder="Entrez l'adresse du client"></td>
         <td rowspan="2">
-          <button (click)="createClient()" [disabled]="!nameClient || !addressClient" class="col-auto btn btn-outline-primary">
-            Ajouter
+          <button (click)="createClient()" [disabled]="!nameClient || !addressClient" class="col-auto btn btn-outline-success">
+            <i class="fa fa-plus"> </i> Ajouter
           </button>
         </td>
       </tr>
@@ -42,4 +42,3 @@
     </table>
   </div>
 </div>
-

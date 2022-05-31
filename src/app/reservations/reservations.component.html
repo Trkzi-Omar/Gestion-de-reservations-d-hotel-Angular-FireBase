@@ -48,51 +48,51 @@
             <option value="" disabled selected>Modifier le client</option>
             <option *ngFor="let clt of allClients" [value]="clt.name">{{clt.name}}</option>
           </select></td>
-          <td><input class="input-group" type="text" [(ngModel)]="bkng.toEditRoomN"
+          <td><input class="form-control input-group" type="text" [(ngModel)]="bkng.toEditRoomN"
                      placeholder="Modifier le N° de chambre"/></td>
-          <td><input type="date" [(ngModel)]="bkng.toEditStart" placeholder="Modifier la date de début"/></td>
-          <td><input type="date" [(ngModel)]="bkng.toEditEnd" [min]="bkng.toEditStart"
+          <td><input class="form-control" type="date" [(ngModel)]="bkng.toEditStart" placeholder="Modifier la date de début"/></td>
+          <td><input class="form-control" type="date" [(ngModel)]="bkng.toEditEnd" [min]="bkng.toEditStart"
                      placeholder="Modifier la date de fin"/></td>
           <td>-</td>
-          <td><select [(ngModel)]="bkng.toEditRoomType" id="editType">
+          <td><select class="form-control" [(ngModel)]="bkng.toEditRoomType" id="editType">
             <option value="" disabled selected>Modifier le type de chambre</option>
             <option *ngFor="let rm of roomTypes" [value]="rm.type">{{rm.type}}</option>
           </select></td>
-          <td><select [(ngModel)]="bkng.toEditSmoking" id="editFumer">
+          <td><select class="form-control" [(ngModel)]="bkng.toEditSmoking" id="editFumer">
             <option value="" disabled selected>Autorisation de fumer</option>
             <option value="true">Autorisé</option>
             <option value="false">Non autorisé</option>
           </select></td>
-          <td><input type="number" [(ngModel)]="bkng.toEditPricePerNight" placeholder="Modifier le prix/nuit"/></td>
+          <td><input class="form-control" type="number" [(ngModel)]="bkng.toEditPricePerNight" placeholder="Modifier le prix/nuit"/></td>
           <td>-</td>
-          <td><a class="btn btn-outline-success fa fa-check" (click)="updateBooking(bkng)">Enregistrer</a></td>
-          <td><a class="btn btn-outline-danger fa fa-ban" (click)="bkng.isBeingEdited=false">Annuler</a></td>
+          <td><a class="form-control btn btn-outline-success fa fa-check" (click)="updateBooking(bkng)">Enregistrer</a></td>
+          <td><a class="form-control btn btn-outline-danger fa fa-ban" (click)="bkng.isBeingEdited=false">Annuler</a></td>
         </tr>
       </ng-template>
     </ng-container>
     <tr>
-      <td><select [(ngModel)]="bookingClient">
+      <td><select class="form-control" [(ngModel)]="bookingClient">
         <option value="" disabled selected="selected">Choisir le client</option>
         <option *ngFor="let clt of allClients" [value]="clt.name">{{clt.name}}</option>
       </select>
       </td>
-      <td style="width: fit-content;"><input  style="width: fit-content;"type="number" class="" [(ngModel)]="roomN"
+      <td style="width: fit-content;"><input  style="width: fit-content;"type="number" class="form-control" [(ngModel)]="roomN"
                  placeholder="N° de chambre">
       </td>
-      <td><input type="date" [(ngModel)]="start" >
+      <td><input type="date" [(ngModel)]="start" class="form-control">
       </td>
-      <td><input type="date" [(ngModel)]="end" [min]="start">
+      <td><input type="date" [(ngModel)]="end" [min]="start" class="form-control">
       </td>
       <td>-</td>
-      <td><select [(ngModel)]="roomType" id="type">
+      <td><select [(ngModel)]="roomType" id="type" class="form-control">
         <option *ngFor="let rm of roomTypes" [value]="rm.type">{{rm.type}}</option>
       </select>
       </td>
-      <td><select [(ngModel)]="smoking" id="fumer">
+      <td><select [(ngModel)]="smoking" id="fumer" class="form-control">
         <option value="true">Autorisé</option>
         <option value="false">Non autorisé</option>
       </select>
-      <td><input type="number" [(ngModel)]="pricePerNight" min="1" step="any" placeholder="Prix/nuit"/>
+      <td><input type="number" [(ngModel)]="pricePerNight" class="form-control" min="1" step="any" placeholder="Prix/nuit"/>
       </td>
       <td>-</td>
       <td>

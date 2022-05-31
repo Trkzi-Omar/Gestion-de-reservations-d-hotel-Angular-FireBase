@@ -1,1 +1,38 @@
-<p>room-types works!</p>
+<div class="row main-container justify-content-center text-center align-items-center align-content-center">
+  <div><h4>Gestion des clients</h4></div>
+  <div class="col-11 align-self-center table-responsive">
+    <table class="col-12 table table-striped">
+      <tr>
+        <th><strong>Nom du type</strong></th>
+        <td></td>
+        <td></td>
+      </tr>
+      <ng-container *ngFor="let rmType of roomTypes">
+        <tr *ngIf="!rmType.isBeingEdited;">
+          <!--      <td>{{rmType.id}}</td>-->
+          <td>{{rmType.type}}</td>
+          <td><a (click)="editRoomType(rmType)" href="#"><i class="fa fa-pencil-square"></i></a></td>
+          <td><a (click)="deleteRoomType(rmType.id)" href="#"><i class="fa fa-trash-o"></i></a></td>
+        </tr>
+
+        <tr *ngIf="rmType.isBeingEdited;">
+          <td>
+            <input class="form-control" type="text" [(ngModel)]="rmType.toEditType" placeholder="Modifier le nom"/>
+          </td>
+          <a class="btn btn-primary" (click)="updateRoomType(rmType)">Enregistrer</a>
+          <a class="btn btn-warning" (click)="rmType.isBeingEdited=false">Annuler</a>
+
+        </tr>
+      </ng-container>
+      <tr>
+        <td><input class="form-control col-auto" [(ngModel)]="type"
+                   placeholder="Entrez le nom du RoomType"></td>
+        <td rowspan="2">
+          <button (click)="createRoomType()" [disabled]="!type" class="col-auto btn btn-outline-success">
+            <i class="fa fa-plus"> </i> Ajouter
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
